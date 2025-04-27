@@ -1,11 +1,8 @@
 {
   "build": {
     "android": {
-      "distribution": "internal",
-      "production": {
-        "distribution": "store",
-        "buildType": "app-bundle"
-      }
+      "distribution": "store",  // إذا كنت تنوي نشر التطبيق في متجر Google Play
+      "buildType": "app-bundle" // استخدم "app-bundle" للنشر على Google Play
     }
   }
 }
