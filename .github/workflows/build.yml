@@ -12,7 +12,7 @@ on:
 env:
   EXPO_SDK_VERSION: "50.0.4"
   EAS_CLI_VERSION: "0.55.0"
-  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }} # تم نقل EXPO_TOKEN إلى مستوى الوظيفة
+  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
 jobs:
   build:
@@ -40,19 +40,23 @@ jobs:
         run: npm install
 
       - name: Build Android app (Development)
-        run: eas build --platform android --profile development --non-interactive
+        run: EXPO_TOKEN=${{ secrets.EXPO_TOKEN }} eas build --platform android --profile development --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Upload Development Android Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-dev-app.apk
-          path: android/app/build/outputs/apk/development/debug/app-development-debug.apk
+      # - name: Upload Development Android Artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: android-dev-app.apk
+      #     path: android/app/build/outputs/apk/development/debug/app-development-debug.apk
 
       - name: Build Android app (Production)
-        run: eas build --platform android --profile production --non-interactive
+        run: EXPO_TOKEN=${{ secrets.EXPO_TOKEN }} eas build --platform android --profile production --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Upload Production Android Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-production-app.aab
-          path: android/app/build/outputs/bundle/release/app-release.aab
+      # - name: Upload Production Android Artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: android-production-app.aab
+      #     path: android/app/build/outputs/bundle/release/app-release.aab
