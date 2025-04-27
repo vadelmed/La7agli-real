@@ -1,18 +1,15 @@
-name: Build Expo App
+name: Expo EAS Build
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
-  build_development_android:
-    name: Build Android Development APK
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -28,73 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Android app (Development)
+      - name: Build Android app
         run: EXPO_TOKEN=${{ secrets.EXPO_TOKEN }} eas build --platform android --profile development --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Upload Development Android Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-dev-app.apk
-          path: android/app/build/outputs/apk/development/debug/app-development-debug.apk # قد يختلف المسار، تحقق من مخرجات البناء
-
-
-  build_preview_android:
-    name: Build Android Preview APK
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install Expo CLI and EAS CLI
-        run: npm install -g expo-cli eas-cli
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Android app (Preview)
-        run: EXPO_TOKEN=${{ secrets.EXPO_TOKEN }} eas build --platform android --profile preview --non-interactive
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Upload Preview Android Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-preview-app.apk
-          path: android/app/build/outputs/apk/preview/debug/app-preview-debug.apk # قد يختلف المسار، تحقق من مخرجات البناء
-
-
-  build_production_android:
-    name: Build Android Production AAB
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install Expo CLI and EAS CLI
-        run: npm install -g expo-cli eas-cli
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Android app (Production)
-        run: EXPO_TOKEN=${{ secrets.EXPO_TOKEN }} eas build --platform android --profile production --non-interactive
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Upload Production Android Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-production-app.aab
-          path: android/app/build/outputs/bundle/release/app-release.aab # قد يختلف المسار، تحقق من مخرجات البناء
