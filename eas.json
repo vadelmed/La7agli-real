@@ -1,7 +1,7 @@
 {
   "build": {
     "android": {
-      "workflow": "managed"
+      "distribution": "internal"
     }
   }
 }
