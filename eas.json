@@ -1,7 +1,13 @@
 {
   "build": {
     "android": {
-      "distribution": "store"
+      "production": {
+        "distribution": "store",
+        "buildType": "app-bundle"
+      },
+      "development": {
+        "distribution": "internal"
+      }
     }
   }
 }
