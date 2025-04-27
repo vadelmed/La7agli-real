@@ -48,6 +48,11 @@
           "locationAlwaysAndWhenInUsePermission": "Allow La7agli to use your location."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "435b79ad-e2a8-4c59-8146-585845f52142"
+      }
+    }
   }
 }
