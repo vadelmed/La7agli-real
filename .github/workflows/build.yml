@@ -1,10 +1,17 @@
-name: Expo EAS Build
+name: Build Expo App
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
+
+env:
+  EXPO_SDK_VERSION: "50.0.4"
+  EAS_CLI_VERSION: "0.55.0"
 
 jobs:
   build:
@@ -20,12 +27,20 @@ jobs:
           node-version: 18
 
       - name: Install Expo CLI and EAS CLI
-        run: npm install -g expo-cli eas-cli
+        run: npm install -g expo-cli@latest eas-cli@${{ env.EAS_CLI_VERSION }}
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+
+      - name: Delete node_modules
+        run: rm -rf node_modules package-lock.json
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build Android app
+      - name: Build Android app (Development)
         run: EXPO_TOKEN=${{ secrets.EXPO_TOKEN }} eas build --platform android --profile development --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Upload
