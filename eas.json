@@ -1,19 +1,13 @@
 {
   "build": {
     "android": {
-      "development": {
-        "distribution": "internal",
-        "buildType": "app-bundle",
-        "channel": "development"
-      },
-      "production": {
+      "release": {
         "distribution": "store",
-        "buildType": "app-bundle",
-        "channel": "production"
+        "buildType": "app-bundle"
+      },
+      "debug": {
+        "distribution": "internal"
       }
     }
-  },
-  "submit": {
-    "production": {}
   }
 }
