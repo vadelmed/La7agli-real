@@ -1,28 +1,9 @@
 {
   "build": {
     "development": {
-      "android": {
-        "buildType": "apk"
-      },
-      "ios": {
-        "buildType": "simulator"
-      }
+      "developmentClient": true
     },
-    "preview": {
-      "android": {
-        "buildType": "apk"
-      },
-      "ios": {
-        "buildType": "app-store"
-      }
-    },
-    "production": {
-      "android": {
-        "buildType": "aab"
-      },
-      "ios": {
-        "buildType": "app-store"
-      }
-    }
+    "preview": {},
+    "production": {}
   }
 }
